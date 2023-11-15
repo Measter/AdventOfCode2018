@@ -15,4 +15,6 @@ debug = true
 
 [dependencies]
 aoc_lib = { path = "../aoc_lib" }
+chumsky = "1.0.0-alpha.6"
 color-eyre = "0.6.2"
+itertools = "0.11.0"
