@@ -1,8 +1,10 @@
 use std::{collections::HashMap, ops::Range};
 
 use aoc_lib::{Bench, BenchResult, Day, NoError, ParseResult, UserError};
-use chumsky::{extra::Default, primitive::just, text::digits, Parser};
+use chumsky::{primitive::just, text::digits, Parser as _};
 use color_eyre::{eyre::eyre, Report, Result};
+
+use crate::Parser;
 
 pub const DAY: Day = Day {
     day: 4,
@@ -39,7 +41,7 @@ struct TimeStamp {
 }
 
 impl TimeStamp {
-    fn parser<'a>() -> impl Parser<'a, &'a str, TimeStamp, Default> {
+    fn parser<'a>() -> impl Parser<'a, TimeStamp> {
         let year_num = digits(10).to_slice().from_str::<u16>().unwrapped();
         let other_num = digits(10).to_slice().from_str::<u8>().unwrapped();
 
@@ -70,7 +72,7 @@ enum EventKind {
 }
 
 impl EventKind {
-    fn parser<'a>() -> impl Parser<'a, &'a str, EventKind, Default> {
+    fn parser<'a>() -> impl Parser<'a, EventKind> {
         let number = digits(10).to_slice().from_str::<u16>().unwrapped();
         let id = just('#').ignore_then(number);
 
